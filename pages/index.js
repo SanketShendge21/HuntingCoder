@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,14 +15,14 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-      <nav className={styles.mainnav}>
-        <ul>
-          <li>Home</li>
-          <li>Blog</li>
-          <li>About</li>
-          <li>Contact</li>
-        </ul>
-      </nav>
+			<nav className={styles.mainnav}>
+				<ul>
+					<Link href="/"><li>Home</li></Link>
+					<Link href="/blog"><li>Blog</li></Link>
+					<Link href="/about"><li>About</li></Link>
+					<Link href="/contact"><li>Contact</li></Link>
+				</ul>
+			</nav>
 			<main className={`${styles.main} ${inter.className}`}>
 				<div className={styles.description}>
 					<p>
@@ -119,22 +120,22 @@ export default function Home() {
 					</a>
 				</div>
 				<div className="blogs">
-          <h2>Popular Blogs</h2>
+					<h2>Popular Blogs</h2>
 					<div className="blogItem">
 						<h3>How to learn Next Js in 2023-2024</h3>
-            <p>This is gonna be fun</p>
+						<p>This is gonna be fun</p>
 					</div>
 					<div className="blogItem">
 						<h3>How to learn Next Js in 2023-2024</h3>
-            <p>This is gonna be fun</p>
+						<p>This is gonna be fun</p>
 					</div>
 					<div className="blogItem">
 						<h3>How to learn Next Js in 2023-2024</h3>
-            <p>This is gonna be fun</p>
+						<p>This is gonna be fun</p>
 					</div>
 					<div className="blogItem">
 						<h3>How to learn Next Js in 2023-2024</h3>
-            <p>This is gonna be fun</p>
+						<p>This is gonna be fun</p>
 					</div>
 				</div>
 			</main>
