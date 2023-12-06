@@ -1,0 +1,15 @@
+.main {
+	display: flex;
+    flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    justify-content: center;
+    padding-top: 3rem   ;
+    /*
+	min-height: 100vh; */
+}
+
+.container {
+	padding: 0 22rem;
+}
