@@ -1,37 +1,38 @@
-import React from 'react'
-import styles from '@/styles/Blog.module.css';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import styles from "@/styles/Blog.module.css";
+import Link from "next/link";
 
 const blog = () => {
-  return (
-	
-// 	These are steps we will follow to display title and description on the blog page.
-// First step would be to collect all the files from the blogdata directory. 
-// Second step would be to iterate through all the collected files and display the needed information on the blog.js page.
+	const [blogs, setBlogs] = useState([]);
+	useEffect(() => {
+		fetch("http://localhost:3000/api/blogs")
+			.then((a) => {
+				// Wating for promise resolution
+				return a.json(); // Promise returns some data then we wait for to parse the data
+			})
+			.then((parsed) => {
+				console.log(parsed);
+				setBlogs(parsed);
+			});
+	}, []);
+	return (
+		// 	These are steps we will follow to display title and description on the blog page.
+		// First step would be to collect all the files from the blogdata directory.
+		// Second step would be to iterate through all the collected files and display the needed information on the blog.js page.
 
-    <div className={styles.container}>
-      <main className={`${styles.main}`}>
-					<div className={styles.blogItem}>
-            <Link href={'/blogpost/learn-javascript'}>
-						  <h3>How to learn Next Js in 2023-2024</h3>
-            </Link>
-						<p>This is gonna be fun</p>
+		<div className={styles.container}>
+			<main className={`${styles.main}`}>
+				{blogs.map((blogitem) => {
+					return <div key={blogitem.slug} className={styles.blogItem}>
+						<Link href={`/blogpost/${blogitem.slug}`}>
+							<h3>{blogitem.title}</h3>
+						</Link>
+						<p className={styles.blogItemP}>{blogitem.content.substr(0,140)}...</p>
 					</div>
-					<div className={styles.blogItem}>
-						<h3>How to learn Next Js in 2023-2024</h3>
-						<p>This is gonna be fun</p>
-					</div>
-					<div className={styles.blogItem}>
-						<h3>How to learn Next Js in 2023-2024</h3>
-						<p>This is gonna be fun</p>
-					</div>
-					<div className={styles.blogItem}>
-						<h3>How to learn Next Js in 2023-2024</h3>
-						<p>This is gonna be fun</p>
-					</div>
-      </main>
+				})}
+			</main>
 		</div>
-  )
-}
+	);
+};
 
-export default blog
+export default blog;

@@ -13,3 +13,7 @@
     /*
 	min-height: 100vh; */
 }
+
+.blogItemP{
+	max-width: 45vw;
+}
