@@ -1,12 +1,28 @@
 import { useRouter } from 'next/router'
 
 import styles from '@/styles/BlogPost.module.css';
+import { useState , useEffect } from 'react';
 
 
 // This is dynamic route so if path is not specified then it will return a default page
 export default function Page() {
+  const [blog, setBlog] = useState()
   const router = useRouter()
-  const slug = router.query.slug;
+	useEffect(() => {
+    if(!router.isReady) return;
+    const slug = router.query.slug;
+		fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+			.then((a) => {
+				// Wating for promise resolution
+				return a.json(); // Promise returns some data then we wait for to parse the data
+			})
+			.then((parsed) => {
+				console.log(parsed);
+				setBlog(parsed);
+			});
+	}, [router.isReady]); // isReady return a boolean, if return true then run useEffect again
+  
+
   return(
 
 // These are steps we will follow to display the content of the blog on the blogpost page.
@@ -16,10 +32,10 @@ export default function Page() {
 
     <div className={styles.container}>
       <main className={`${styles.main}`}>
-      <h1>Title of the page is {slug}</h1>
+      <h1>{blog && blog.title}</h1>
       <hr />
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolor quo beatae ut ipsum molestias harum aspernatur consequuntur illum fugiat!
+        {blog && blog.content}
       </p>
       </main>
     </div>
