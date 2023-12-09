@@ -5,22 +5,24 @@ import { useState , useEffect } from 'react';
 
 
 // This is dynamic route so if path is not specified then it will return a default page
-export default function Page() {
-  const [blog, setBlog] = useState()
-  const router = useRouter()
-	useEffect(() => {
-    if(!router.isReady) return;
-    const slug = router.query.slug;
-		fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
-			.then((a) => {
-				// Wating for promise resolution
-				return a.json(); // Promise returns some data then we wait for to parse the data
-			})
-			.then((parsed) => {
-				console.log(parsed);
-				setBlog(parsed);
-			});
-	}, [router.isReady]); // isReady return a boolean, if return true then run useEffect again
+export default function Page(props) {
+  const [blog, setBlog] = useState(props.myBlog)
+
+  // Now we used server side rendering to render the blog so commented useEffect
+  // const router = useRouter()
+	// useEffect(() => {
+  //   if(!router.isReady) return;
+  //   const slug = router.query.slug;
+	// 	fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+	// 		.then((a) => {
+	// 			// Wating for promise resolution
+	// 			return a.json(); // Promise returns some data then we wait for to parse the data
+	// 		})
+	// 		.then((parsed) => {
+	// 			console.log(parsed);
+	// 			setBlog(parsed);
+	// 		});
+	// }, [router.isReady]); // isReady return a boolean, if return true then run useEffect again
   
 
   return(
@@ -41,3 +43,16 @@ export default function Page() {
     </div>
   )
 }
+
+export async function getServerSideProps(context) {
+
+  // Context object contains a lot of things we can extract query from context
+  const slug = context.query.slug;
+
+  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+	let myBlog = await data.json();
+
+	return {
+	  props: { myBlog }, // will be passed to the page component as props
+	}
+  }
