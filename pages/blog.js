@@ -4,7 +4,11 @@ import Link from "next/link";
 import * as fs from 'fs';
 
 const blog = (props) => {
-	console.log(props);
+	function createMarkup(c) { // Dangerously create markup to set innerHTML
+        return { __html: c };
+    }
+
+	// console.log(props);
 	const [blogs, setBlogs] = useState(props.allBlogs);
 
 	// Now we used server side rendering to render the blog so commented useEffect
@@ -31,7 +35,8 @@ const blog = (props) => {
 						<Link href={`/blogpost/${blogitem.slug}`}>
 							<h3>{blogitem.title}</h3>
 						</Link>
-						<p className={styles.blogItemP}>{blogitem.content.substr(0,140)}...</p>
+						{blog && <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div>}
+						<p className={styles.blogItemp}>{blogitem.content.substr(0, 140)}...</p>
 					</div>
 				})}
 			</main>
