@@ -32,11 +32,12 @@ const blog = (props) => {
 			<main className={`${styles.main}`}>
 				{blogs.map((blogitem) => {
 					return <div key={blogitem.slug} className={styles.blogItem}>
-						<Link href={`/blogpost/${blogitem.slug}`}>
+						
 							<h3>{blogitem.title}</h3>
-						</Link>
+						
 						{blog && <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div>}
 						<p className={styles.blogItemp}>{blogitem.content.substr(0, 140)}...</p>
+						<Link href={`/blogpost/${blogitem.slug}`}><button className={styles.btn}>Read More</button> </Link>
 					</div>
 				})}
 			</main>

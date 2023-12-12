@@ -33,7 +33,7 @@ const Contact = () => {
 			});
 	};
 
-	const handleOnChange = (e) => {
+	const handleChange = (e) => {
 		if (e.target.name === "name") {
 			setName(e.target.value);
 		} else if (e.target.name === "phone") {
@@ -44,76 +44,29 @@ const Contact = () => {
 			setDesc(e.target.value);
 		}
 	};
-	return (
-		<>
-			<div>This is contact page</div>
-			<div className={styles.container}>
-				<h1>Contact Us</h1>
-				<form onSubmit={handleSubmit}>
-					<div className={styles.mb3}>
-						<label htmlFor="exampleInputName" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className={styles.formlabel}
-							value={name}
-							onChange={handleOnChange}
-							id="name"
-							name="name"
-							aria-describedby="emailHelp"
-						/>
-					</div>
-					<div className={styles.mb3}>
-						<label htmlFor="exampleInputEmail1" className="form-label">
-							Email address
-						</label>
-						<input
-							type="email"
-							className={styles.formlabel}
-							value={email}
-							onChange={handleOnChange}
-							id="email"
-							name="email"
-							aria-describedby="emailHelp"
-						/>
-					</div>
-					<div className={styles.mb3}>
-						<label htmlFor="exampleInputPhone" className="form-label">
-							Phone
-						</label>
-						<input
-							type="text"
-							className={styles.formlabel}
-							value={phone}
-							onChange={handleOnChange}
-							id="phone"
-							name="phone"
-							aria-describedby="emailHelp"
-						/>
-					</div>
-					<div className={styles.mb3}>
-						<label htmlFor="exampleFormControlTextarea1" className="form-label">
-							Elaborate your concern
-						</label>
-						<textarea
-							className={styles.formlabel}
-							value={desc}
-							onChange={handleOnChange}
-							id="desc"
-							name="desc"
-							rows="3"
-							placeholder="Write your concern here"
-						>
-						</textarea>
-					</div>
-					<button type="submit" className="btn btn-primary">
-						Submit
-					</button>
-				</form>
-			</div>
-		</>
-	);
+	return <div className={styles.container}>
+	<h1>Contact Us</h1>
+	<form onSubmit={handleSubmit}>
+		<div className={styles.mb3}>
+			<label htmlFor="name" className={styles.formlabel}>Enter your name</label>
+			<input className={styles.input} type="text" value={name} onChange={handleChange} id="name" name='name' aria-describedby="emailHelp" />
+		</div>
+		<div className={styles.mb3}>
+			<label htmlFor="email" className={styles.formlabel}>Email address</label>
+			<input className={styles.input} type="email" value={email} onChange={handleChange} name='email' id="email" aria-describedby="emailHelp" />
+			<div id="emailHelp" className={styles.formtext}>We'll never share your email with anyone else.</div>
+		</div>
+		<div className={styles.mb3}>
+			<label htmlFor="phone" className={styles.formlabel}>Password</label>
+			<input className={styles.input} type="phone" value={phone} onChange={handleChange} name='phone' id="phone" required />
+		</div>
+		<div className={styles.mb3}>
+			<label className={styles.formlabel} htmlFor="desc">Elaborate your concern</label>
+			<textarea className={styles.input} value={desc} onChange={handleChange} name='desc' id="desc" />
+		</div>
+		<button type="submit" className={styles.btn}>Submit</button>
+	</form>
+</div>;
 };
 
 export default Contact;
